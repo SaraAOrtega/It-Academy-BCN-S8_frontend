@@ -1,0 +1,52 @@
+@if(loading) {
+  <app-progress-bar></app-progress-bar>
+}
+@if(!loading) {
+
+<div class="container-fluid my-5 px-5">
+    <div class="title">
+    <h4>Employee list</h4>
+    <button type="button" class="btn btn-primary mb-5" [routerLink]="['/add']">Add Employee</button>
+</div>
+@if(listEmployee.length > 0){
+<table class="table table-hover mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Team</th>
+            <th scope="col">Category</th>
+            <th scope="col"></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            @for (item of listEmployee; track item){
+          <tr  class="table-active">
+                <td>{{item.name}}</td>
+                <td>{{item.lastName}}</td>
+                <td>{{item.dni}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.team}}</td>
+                <td>{{item.category}}</td>
+                <td>
+                  <button routerLink="/edit/{{ item.id }}" type="button" class="btn btn-info btn-sm">Edit</button>
+                <button (click)="openDeleteDialog(item.id!)" type="button" class="btn btn-secondary btn-sm ms-4">Delete</button>
+            </td>
+          </tr>
+        }
+        </tbody>
+    
+      </table>
+    }
+    @else{
+      <div class="alert alert-warning" role="alert">
+          <h5 class=""> No hay empleados para mostrar</h5>
+      </div>
+      }
+  </div>
+  }
