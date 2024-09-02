@@ -2,17 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Employee } from './../../intefaces/employee';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServerService } from '../../services/server.service';
 import { ProgressBarComponent } from '../../shared/progress-bar/progress-bar.component';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-list',
@@ -22,7 +17,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './add-edit-list.component.css',
 })
 export class AddEditListComponent implements OnInit {
-
   formData: FormGroup;
   submitted = false;
   loading: boolean = false;
@@ -34,53 +28,61 @@ export class AddEditListComponent implements OnInit {
     private employee_service: ServerService,
     private router: Router,
     private toastr: ToastrService, 
-    private aRouter: ActivatedRoute) {
+    private aRouter: ActivatedRoute
+  ) {
     this.formData = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       dni: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       team: ['', Validators.required],
       category: ['', Validators.required],
-    })
+    });
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
-
-    
   }
 
   ngOnInit(): void {
-
-    if (this.id != 0) {
+    if (this.id !== 0) {
       // Es editar
       this.operacion = 'Edit ';
       this.getEmployee(this.id);
     }
   }
 
- getEmployee(id: number) { 
+  async getEmployee(id: number) {
     this.loading = true;
-   this.employee_service.getEmployee(id).subscribe((data:Employee) => {
-  
-      console.log('Employee data:', data); // Esto debería mostrar todos los datos
-      console.log('Team:', data.team); // Asegúrate de que no sea null o undefined
-      console.log('Category:', data.category); // Asegúrate de que no sea null o undefined
-      console.log (data)
-      this.loading = false;
+    try {
+      const data: Employee = await lastValueFrom(this.employee_service.getEmployee(id));
+      console.log('Employee data:', data);
+      console.log('Team:', data.team);
+      console.log('Category:', data.category);
+      console.log(data);
+
       this.formData.setValue({
         name: data.name,
         lastName: data.lastName,
         dni: data.dni,
-        phone: data.phone, 
-        email: data.email, 
-        team: data.team, 
-        category: data.category, 
-      })
-    })
+        phone: data.phone,
+        email: data.email,
+        team: data.team,
+        category: data.category,
+      });
+    } catch (error) {
+      console.error('Error fetching employee data:', error);
+      this.toastr.error('Failed to fetch employee data', 'Error');
+    } finally {
+      this.loading = false;
+    }
   }
 
+  async addEmployee() {
+    this.submitted = true;
+    if (this.formData.invalid) {
+      this.markAllFieldsAsTouched();
+      return;
+    }
 
-  addEmployee() {
     const employee: Employee = {
       name: this.formData.value.name,
       lastName: this.formData.value.lastName,
@@ -92,33 +94,35 @@ export class AddEditListComponent implements OnInit {
     };
 
     this.loading = true;
-
-    if (this.id !== 0) {
-      // Es editar 
-      employee.id = this.id;
-      this.employee_service.updateProduct(this.id, employee).subscribe(() => {
-        this.toastr.info(`El empleado ${employee.name} fue actualizado con exito`, 'Empleado actualizado');
-        this.loading = false;
-        this.router.navigate(['/']);
-      })
-    } else {
-    this.employee_service.saveEmployee(employee).subscribe(() => {
-      this.loading = false;
-      this.toastr.success('Employee add successfully', 'Employee add');
+    try {
+      if (this.id !== 0) {
+        // Es editar
+        employee.id = this.id;
+        await lastValueFrom(this.employee_service.updateProduct(this.id, employee));
+        this.toastr.info(`El empleado ${employee.name} fue actualizado con éxito`, 'Empleado actualizado');
+      } else {
+        await lastValueFrom(this.employee_service.saveEmployee(employee));
+        this.toastr.success('Empleado agregado con éxito', 'Empleado agregado');
+      }
       this.router.navigate(['/']);
-    });
-  }
-}
-
-  onSubmit() {
-    if (this.formData.invalid) {
-      this.markAllFieldsAsTouched(); // Marca todos los campos como tocados
-      return;
+    } catch (error) {
+      console.error('Error saving employee data:', error);
+      this.toastr.error('Failed to save employee data', 'Error');
+    } finally {
+      this.loading = false;
     }
   }
 
+  onSubmit() {
+    if (this.formData.invalid) {
+      this.markAllFieldsAsTouched();
+      return;
+    }
+    this.addEmployee();
+  }
+
   markAllFieldsAsTouched() {
-    Object.values(this.formData.controls).forEach((control) => {
+    Object.values(this.formData.controls).forEach(control => {
       control.markAsTouched();
     });
   }
