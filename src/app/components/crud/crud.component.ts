@@ -53,7 +53,7 @@ export class CrudComponent {
       disableClose: true,
       position: {
         left: '35%',
-        top: '-10%'
+        top: '-20%'
       }
     });
 

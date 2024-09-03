@@ -34,7 +34,7 @@ export class ServerService {
     return this.http.get<Employee>(`${this.myAppUrl}${this.myApiUrl}${id}`)
   }
 
-  updateProduct(id: number, employee: Employee): Observable<void> {
+  updateEmployee(id: number, employee: Employee): Observable<void> {
     return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, employee);
   }
 }

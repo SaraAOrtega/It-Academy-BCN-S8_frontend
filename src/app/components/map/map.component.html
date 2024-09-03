@@ -1,1 +1,17 @@
-<p>map works!</p>
+<div class="map-container">
+  <div id="map" class="map-canvas"></div>
+  <div class="places-list">
+    @if (mapService.places$ | async; as places) {
+      <h3>Lugares</h3>
+      <ul>
+        @for (place of places; track trackByPlaceId(place)) {
+          <li (click)="highlightMarker(place)">
+            {{ place.title }}
+          </li>
+        }
+      </ul>
+    } @else {
+      <p>Cargando lugares...</p>
+    }
+  </div>
+</div>

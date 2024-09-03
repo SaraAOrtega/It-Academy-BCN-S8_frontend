@@ -98,7 +98,7 @@ export class AddEditListComponent implements OnInit {
       if (this.id !== 0) {
         // Es editar
         employee.id = this.id;
-        await lastValueFrom(this.employee_service.updateProduct(this.id, employee));
+        await lastValueFrom(this.employee_service.updateEmployee(this.id, employee));
         this.toastr.info(`El empleado ${employee.name} fue actualizado con éxito`, 'Empleado actualizado');
       } else {
         await lastValueFrom(this.employee_service.saveEmployee(employee));
