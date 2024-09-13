@@ -82,7 +82,7 @@ export class MapService {
       const marker = this.markers.get(placeId);
       if (marker) {
         const element = marker.getElement();
-        // Toggle the highlight
+    
         if (element.style.filter === 'hue-rotate(120deg) saturate(150%)') {
           element.style.filter = '';
         } else {
