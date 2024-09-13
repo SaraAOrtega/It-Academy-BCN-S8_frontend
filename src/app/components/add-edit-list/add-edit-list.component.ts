@@ -54,10 +54,6 @@ export class AddEditListComponent implements OnInit {
     this.loading = true;
     try {
       const data: Employee = await lastValueFrom(this.employee_service.getEmployee(id));
-      console.log('Employee data:', data);
-      console.log('Team:', data.team);
-      console.log('Category:', data.category);
-      console.log(data);
 
       this.formData.setValue({
         name: data.name,
@@ -69,7 +65,6 @@ export class AddEditListComponent implements OnInit {
         category: data.category,
       });
     } catch (error) {
-      console.error('Error fetching employee data:', error);
       this.toastr.error('Failed to fetch employee data', 'Error');
     } finally {
       this.loading = false;

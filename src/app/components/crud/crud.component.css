@@ -1,5 +1,16 @@
 .title{
-    margin-top: 80px;
     display: flex; 
     justify-content: space-between;
 } 
+
+.custom-dialog-container {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .custom-dialog-container .mat-dialog-container {
+    transform: translate(-50%, -50%);
+  }

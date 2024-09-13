@@ -3,9 +3,9 @@
   <div class="places-list">
     @if (mapService.places$ | async; as places) {
       <h3>Lugares</h3>
-      <ul>
+      <ul class="places-list-items">
         @for (place of places; track trackByPlaceId(place)) {
-          <li (click)="highlightMarker(place)">
+          <li (click)="highlightMarker(place)" class="place-item">
             {{ place.title }}
           </li>
         }

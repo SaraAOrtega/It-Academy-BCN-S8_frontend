@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapService } from '../../services/maps.service';
-import { Place } from '../../intefaces/place'; // Asegúrate de importar la interfaz Place
+import { Place } from '../../intefaces/place'; 
 
 @Component({
   selector: 'app-map',

@@ -1,0 +1,41 @@
+
+<div class="calendar-container">
+    <button (click)="openCreateEventModal()" class="btn btn-primary mb-3">Create New Event</button>
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+  </div>
+  
+  <ng-template #createEventModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Create New Event</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="eventName">Event Name</label>
+          <input type="text" class="form-control" id="eventName" [(ngModel)]="newEvent.name_event" name="eventName" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Event Date</label>
+          <input type="date" class="form-control" id="eventDate" [(ngModel)]="newEvent.date_event" name="eventDate" required>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="createEvent()">Create Event</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteEventModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirmar Eliminación</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de que deseas eliminar este evento?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="confirmDeleteEvent()">Eliminar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    </div>
+  </ng-template>

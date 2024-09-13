@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.calendar-container {
+  align-items: center;
+  padding: 50px;
+  width: 1400px;
+  max-width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+full-calendar {
+  width: 100%;
+  height: auto;
+}
+
+::ng-deep .fc-event {
+  background-color: #1d4c6b;  
+  border: none;
+  padding: 6px 6px;  
+}
+
+
+@media (max-width: 1440px) {
+  .calendar-container {
+    width: 95%;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 20px;
+  }
+
+}

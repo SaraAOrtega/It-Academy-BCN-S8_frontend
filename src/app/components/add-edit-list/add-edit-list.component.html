@@ -2,94 +2,96 @@
     <app-progress-bar></app-progress-bar>
   }
   @if(!loading) {
-  
-
-<div class="container mt-5">
+  <div class="container mt-5">
     <div class="col-lg-4 offset-lg-4">
-        <div class="card text-white bg-primary mb-3 w-100" style="min-height: 30rem">
-            <div class="card-header text-center">{{ operacion }} Employee</div>
-            <div class="card-body">
-                <form [formGroup]="formData" (ngSubmit)="addEmployee()">
-                    <input formControlName="name" type="text" class="form-control" placeholder="Name" />
-                    @if (formData.controls['name'].invalid && (formData.controls['name'].dirty ||
-                    formData.controls['name'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['name'].errors?.['required']) { Name is required }</small>
-
-                    </div>
-                    }
-
-                    <input formControlName="lastName" type="text" class="form-control mt-2" placeholder="Last Name" />
-                    @if (formData.controls['lastName'].invalid && (formData.controls['lastName'].dirty ||
-                    formData.controls['lastName'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['lastName'].errors?.['required']) { Last Name is required }</small>
-
-                    </div>
-                    }
-
-                    <input formControlName="dni" type="text" class="form-control mt-2" placeholder="Dni" />
-                    @if (formData.controls['dni'].invalid && (formData.controls['dni'].dirty || formData.controls['dni'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['dni'].errors?.['required']) { Dni is required }</small>
-
-                    </div>
-                    }
-                    <input formControlName="phone" type="text" class="form-control mt-2" placeholder="Phone number" />
-                    @if (formData.controls['phone'].invalid && (formData.controls['phone'].dirty ||
-                    formData.controls['phone'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['phone'].errors?.['required']) { Phone is required }</small>
-                    </div>
-                    }
-                    <input formControlName="email" type="text" class="form-control mt-2" placeholder="Email" />
-
-                    @if (formData.controls['email'].invalid && (formData.controls['email'].dirty ||
-                    formData.controls['email'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['email'].errors?.['required']) { Email is required }</small>
-                        <small>@if (formData.controls['email'].errors?.['email']) { Invalid email }</small>
-
-                    </div>
-                    }
-
-                    
-                  
-
-                   
-                    <input formControlName="team" type="text" class="form-control mt-2" placeholder="Team" />
-                    @if (formData.controls['team'].invalid && (formData.controls['team'].dirty ||
-                    formData.controls['team'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['team'].errors?.['required']) { Team is required }</small>
-                    </div>
-                    }
-
-                    <input formControlName="category" type="text" class="form-control mt-2" placeholder="Category" />
-                    @if (formData.controls['category'].invalid && (formData.controls['category'].dirty ||
-                    formData.controls['category'].touched)) {
-                    <div class="text-danger mt-1">
-                        <small>@if (formData.controls['category'].errors?.['required']) { Category is required }</small>
-                    </div>
-                    }
-
-
-
-                    <div class="row mt-4 text-center">
-                        <div class="col-lg-6">
-                            <button type="button" class="btn btn-outline-success px-5"
-                                [routerLink]="['/listEmployee']">Back</button>
-                        </div>
-                        <div class="col-lg-6">
-                            <button [disabled]="formData.invalid" type="submit" class="btn btn-outline-secondary px-5">
-                                Save
-                            </button>
-
-                        </div>
-                    </div>
-                </form>
+      <div class="card text-white bg-primary mb-3 w-100" style="min-height: 30rem">
+        <div class="card-header text-center">{{ operacion }} Employee</div>
+        <div class="card-body">
+          <form [formGroup]="formData" (ngSubmit)="addEmployee()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input formControlName="name" type="text" class="form-control" id="name" />
+              @if (formData.controls['name'].invalid && (formData.controls['name'].dirty || formData.controls['name'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['name'].errors?.['required']) { Name is required }</small>
+                </div>
+              }
             </div>
+  
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input formControlName="lastName" type="text" class="form-control" id="lastName" />
+              @if (formData.controls['lastName'].invalid && (formData.controls['lastName'].dirty || formData.controls['lastName'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['lastName'].errors?.['required']) { Last Name is required }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="mb-3">
+              <label for="dni" class="form-label">DNI</label>
+              <input formControlName="dni" type="text" class="form-control" id="dni" />
+              @if (formData.controls['dni'].invalid && (formData.controls['dni'].dirty || formData.controls['dni'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['dni'].errors?.['required']) { DNI is required }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input formControlName="phone" type="text" class="form-control" id="phone" />
+              @if (formData.controls['phone'].invalid && (formData.controls['phone'].dirty || formData.controls['phone'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['phone'].errors?.['required']) { Phone is required }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input formControlName="email" type="email" class="form-control" id="email" />
+              @if (formData.controls['email'].invalid && (formData.controls['email'].dirty || formData.controls['email'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['email'].errors?.['required']) { Email is required }</small>
+                  <small>@if (formData.controls['email'].errors?.['email']) { Invalid email }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="mb-3">
+              <label for="team" class="form-label">Team</label>
+              <input formControlName="team" type="text" class="form-control" id="team" />
+              @if (formData.controls['team'].invalid && (formData.controls['team'].dirty || formData.controls['team'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['team'].errors?.['required']) { Team is required }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <input formControlName="category" type="text" class="form-control" id="category" />
+              @if (formData.controls['category'].invalid && (formData.controls['category'].dirty || formData.controls['category'].touched)) {
+                <div class="text-danger mt-1">
+                  <small>@if (formData.controls['category'].errors?.['required']) { Category is required }</small>
+                </div>
+              }
+            </div>
+  
+            <div class="row mt-4 text-center">
+              <div class="col-lg-6">
+                <button type="button" class="btn btn-outline-success px-5" [routerLink]="['/listEmployee']">Back</button>
+              </div>
+              <div class="col-lg-6">
+                <button [disabled]="formData.invalid" type="submit" class="btn btn-outline-secondary px-5">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </div>
   }

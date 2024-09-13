@@ -1,1 +1,20 @@
 @import 'ngx-toastr/toastr';
+
+/* En styles.css o styles.scss */
+.fc .fc-daygrid-event .delete-event {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none;
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  .fc .fc-daygrid-event .delete-event:hover {
+    background-color: #c82333 !important;
+  }
